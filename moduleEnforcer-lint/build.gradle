@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    compileOnly  "com.android.tools.lint:lint-api:$versions.androidTools"
+    compileOnly  "com.android.tools.lint:lint-checks:$versions.androidTools"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre8:$versions.kotlinVersion"
+    testCompile 'junit:junit:4.12'
+    testCompile "com.android.tools.lint:lint:$versions.androidTools"
+    testCompile "com.android.tools.lint:lint-tests:$versions.androidTools"
+    testCompile "com.android.tools:testutils:$versions.androidTools"
+}
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.fbalashov.moduleEnforcer.DetectorRegistry")
+    }
+}

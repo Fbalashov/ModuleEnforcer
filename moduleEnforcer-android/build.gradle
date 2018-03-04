@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+afterEvaluate {
+    generateReleaseBuildConfig.enabled = false
+}
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        minSdkVersion versions.minSdk
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    lintChecks project(path: ':moduleEnforcer-lint', configuration: 'default')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+// based on: https://stackoverflow.com/a/33539941/6526330
+task copyLibs(type: Copy) {
+    from configurations.lintChecks
+    into 'libs'
+}
+build.dependsOn copyLibs
+repositories {
+    mavenCentral()
+}
+
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
