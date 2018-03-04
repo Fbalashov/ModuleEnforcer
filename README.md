@@ -1,5 +1,7 @@
 # Module Enforcer
+![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+TODO: Add maven central badge
 
 <img src="moduleEnforcer.png" alt="Module Enforcer Logo" width=150px height=150px/>
 
