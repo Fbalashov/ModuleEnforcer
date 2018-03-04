@@ -1,7 +1,7 @@
 # Module Enforcer
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-![Module Enforcer Logo](moduleEnforcer.png)
+<img src="moduleEnforcer.png" alt="Module Enforcer Logo" width=150px height=150px/>
 
 Currently only supports Java, due to [Android Lint Limitations](#Limitations)
 
