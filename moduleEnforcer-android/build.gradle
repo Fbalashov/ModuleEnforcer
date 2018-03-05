@@ -19,8 +19,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
-// based on: https://stackoverflow.com/a/33539941/6526330
 task copyLibs(type: Copy) {
+    group 'build'
+    description 'Copies the lintCheck dependencies into the Libs directory'
+    // We need to do this to make annotations from the lint library available to users.
+    // based on: https://stackoverflow.com/a/33539941/6526330
     from configurations.lintChecks
     into 'libs'
 }
