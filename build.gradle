@@ -32,13 +32,5 @@ allprojects {
     }
 }
 
-//android {
-//    compileSdkVersion versions.compileSdk
-//
-//    defaultConfig {
-//        minSdkVersion versions.minSdk
-//    }
-//}
-
 // Publishing information: http://central.sonatype.org/pages/ossrh-guide.html
 // And: https://github.com/chrisbanes/gradle-mvn-push
