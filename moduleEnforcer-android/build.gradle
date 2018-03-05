@@ -16,7 +16,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     lintChecks project(path: ':moduleEnforcer-lint', configuration: 'default')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 task copyLibs(type: Copy) {
@@ -24,12 +23,11 @@ task copyLibs(type: Copy) {
     description 'Copies the lintCheck dependencies into the Libs directory'
     // We need to do this to make annotations from the lint library available to users.
     // based on: https://stackoverflow.com/a/33539941/6526330
+    // According to the comment in this medium post I may be able to improve this with modules:
+    // https://android.jlelse.eu/writing-custom-lint-rules-and-integrating-them-with-android-studio-inspections-or-carefulnow-c54d72f00d30
     from configurations.lintChecks
     into 'libs'
 }
 build.dependsOn copyLibs
-repositories {
-    mavenCentral()
-}
 
 //apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

@@ -1,7 +1,7 @@
 # Module Enforcer
-![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)
+[![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)]((https://travis-ci.org/Fbalashov/ModuleEnforcer))
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-TODO: Add maven central badge
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer)
 
 <img src="moduleEnforcer.png" alt="Module Enforcer Logo" width=150px height=150px/>
 
@@ -28,9 +28,13 @@ comment in this issue, PRs are welcome!)
 3) You are running an android project with lint turned on <___ maybe???___>
 
 Usage Steps:
-0) Add this gradle plugin!
-Let's say we have this module and it should do stuff in onCreate, onDestroy and onSaveIsntanceState.
-1) annotate the module with @ComposeMeCaptain
+0) Add this library in your `build.gradle`
+```
+dependencies {
+  compile 'com.fbalashov.github:ModuleEnforcer:x.xx.xx'
+}
+```
+1) annotate the module class with @Module
 2) annotate the needed methods with @RequiredMethod
 try instantiating the module in an activity and see what happens! Oh my lint errors
 3) call the reported methods in your class and you are set.
