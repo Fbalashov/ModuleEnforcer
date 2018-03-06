@@ -30,4 +30,4 @@ task copyLibs(type: Copy) {
 }
 build.dependsOn copyLibs
 
-//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
