@@ -19,3 +19,18 @@ jar {
         attributes("Lint-Registry-v2": "com.fbalashov.moduleEnforcer.DetectorRegistry")
     }
 }
+
+/**
+ * Copies the jar file containing your lint module
+ * into the .android/lint directory in your home folder.
+ * */
+task copyLintJar(type: Copy) {
+    group 'install'
+    description = 'Copies the lint jar file into the {user.home}/.android/lint folder.'
+    from('build/libs/')
+    into(System.getProperty("user.home") + '/.android/lint')
+    include("*.jar")
+}
+
+// Runs the copyLintJar task after build has completed.
+build.finalizedBy(copyLintJar)
