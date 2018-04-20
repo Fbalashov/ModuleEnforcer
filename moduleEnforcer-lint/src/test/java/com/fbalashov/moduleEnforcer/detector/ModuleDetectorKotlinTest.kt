@@ -30,6 +30,17 @@ class ModuleDetectorKotlinTest {
   }
 
   @Test
+  fun `WHEN there is one module in the project AND it has other methods, fields and annotations AND it's in kotlin`() {
+    val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleWithFieldsMethodsAnnotations)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ClassWithOtherFieldsAndMethods" }
+    TestCase.assertEquals(1, class1Module!!.requiredMethods.size)
+  }
+
+  @Test
   fun `WHEN there are multiple modules in the project AND they're in kotlin`() {
     val result = lint().files(
         stubModuleKt,

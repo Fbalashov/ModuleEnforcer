@@ -157,6 +157,36 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
+  fun `WHEN a module is used, AND all methods are called, AND both classes have other fields, methods and annotations, AND both classes are in kotlin`() {
+    TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithFieldsMethodsAnnotations,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation
+            |
+            |class AClass {
+            |  private val module1 = ClassWithOtherFieldsAndMethods()
+            |
+            |  fun functionOne(): String {
+            |    return module1.aFunction()
+            |  }
+            |
+            |  @AnotherAnnotation
+            |  fun functionTwo(): Boolean {
+            |    return false;
+            |  }
+            |}""".trimMargin())
+        )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+        .expectClean()
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
   fun `WHEN two modules are used, AND one of the second's required methods are not called, AND both classes are in kotlin`() {
     val result = TestLintTask.lint().files(
         stubModuleKt,
@@ -178,7 +208,7 @@ class ModuleUsageDetectorKotlinTest {
             |    module2.bFunction()
             |  }
             |}""".trimMargin())
-        )
+    )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""

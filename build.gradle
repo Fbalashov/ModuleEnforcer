@@ -1,13 +1,12 @@
 apply plugin: 'com.github.ben-manes.versions'
 
 buildscript {
-    ext.kotlin_version = '1.2.30'
     ext.versions = [
-        'androidTools': '26.1.0-alpha06',
+        'androidTools': '26.1.1',
         'kotlinVersion': '1.2.30',
-        'compileSdk': 26,
+        'compileSdk': 27,
         'minSdk': 9,
-        'gradlePlugin': '3.0.1'
+        'gradlePlugin': '3.1.0'
     ]
     repositories {
         jcenter()
@@ -17,18 +16,17 @@ buildscript {
         classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
         maven {
             url "https://maven.google.com"
         }
         google()
+        jcenter()
     }
 }
 

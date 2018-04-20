@@ -31,7 +31,9 @@ Usage Steps:
 0) Add this library in your `build.gradle`
 ```
 dependencies {
-  compile 'com.fbalashov.github:ModuleEnforcer:x.xx.xx'
+  ...
+  compile 'com.github.fbalashov.moduleEnforcer:lib:0.0.4-SNAPSHOT'
+  ...
 }
 ```
 1) annotate the module class with @Module

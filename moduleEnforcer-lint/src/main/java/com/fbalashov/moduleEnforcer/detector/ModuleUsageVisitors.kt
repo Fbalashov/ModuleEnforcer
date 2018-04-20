@@ -50,6 +50,7 @@ class ClassVisitor(private val context: JavaContext): UElementHandler() {
   override fun visitClass(node: UClass) {
     // construct a list of all fields that are modules
     val modulesUsed = node.fields
+        .filter { field -> field.type is PsiClassReferenceType }
         .map { field ->
           val fieldType = (field.type as PsiClassReferenceType).className ?: return@map null
           val module = modules.find{fieldType == it.qualifiedName.name} ?: return@map null
@@ -83,7 +84,7 @@ class InvocationVisitor(private val context: JavaContext, private val modules: M
   init {
     for (module in modules.values) {
       // todo: see if there is a more kotlin way to init this without having moduleCalls be mutable
-      modulesCalls.put(module, mutableSetOf())
+      modulesCalls[module] = mutableSetOf()
     }
   }
 
@@ -115,8 +116,8 @@ class InvocationVisitor(private val context: JavaContext, private val modules: M
       val moduleCalls = modulesCalls[module] ?: return@forEach
       val unCalledMethods = module.requiredMethods.filter {method -> moduleCalls.find { it == method.name } == null}
       if (!unCalledMethods.isEmpty()) {
-        val missingCalls = unCalledMethods.map { it.name }.joinToString()
-        context.report(ISSUE_MODULE_USAGE, fieldNode, context.getLocation(fieldNode), "Not all required methods in this module were invoked: " + missingCalls)
+        val missingCalls = unCalledMethods.joinToString { it.name }
+        context.report(ISSUE_MODULE_USAGE, fieldNode, context.getLocation(fieldNode), "Not all required methods in this module were invoked: $missingCalls")
       }
     }
   }

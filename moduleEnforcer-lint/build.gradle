@@ -1,12 +1,12 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
-targetCompatibility = JavaVersion.VERSION_1_7
-sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    compileOnly  "com.android.tools.lint:lint-api:$versions.androidTools"
-    compileOnly  "com.android.tools.lint:lint-checks:$versions.androidTools"
+    compileOnly "com.android.tools.lint:lint-api:$versions.androidTools"
+    compileOnly "com.android.tools.lint:lint-checks:$versions.androidTools"
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre8:$versions.kotlinVersion"
     testCompile 'junit:junit:4.12'
     testCompile "com.android.tools.lint:lint:$versions.androidTools"
@@ -19,18 +19,3 @@ jar {
         attributes("Lint-Registry-v2": "com.fbalashov.moduleEnforcer.DetectorRegistry")
     }
 }
-
-/**
- * Copies the jar file containing your lint module
- * into the .android/lint directory in your home folder.
- * */
-task copyLintJar(type: Copy) {
-    group 'install'
-    description = 'Copies the lint jar file into the {user.home}/.android/lint folder.'
-    from('build/libs/')
-    into(System.getProperty("user.home") + '/.android/lint')
-    include("*.jar")
-}
-
-// Runs the copyLintJar task after build has completed.
-build.finalizedBy(copyLintJar)

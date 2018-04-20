@@ -23,18 +23,18 @@ val stubRequiredMethodKt: LintDetectorTest.TestFile = TestFiles.kt("""
   |@MustBeDocumented
   |annotation class RequiredMethod""".trimMargin())
 
-val nonModuleKt: LintDetectorTest.TestFile = TestFiles.java("""
-  |package moduleEnforcer.test;
+val nonModuleKt: LintDetectorTest.TestFile = TestFiles.kt("""
+  |package moduleEnforcer.test
   |
   |class NonModuleClassKt {
   |  fun aFunction() {}
   |}""".trimMargin())
 
-val moduleOneKt: LintDetectorTest.TestFile = TestFiles.java("""
-  |package moduleEnforcer.test;
+val moduleOneKt: LintDetectorTest.TestFile = TestFiles.kt("""
+  |package moduleEnforcer.test
   |
-  |import com.fbalashov.moduleEnforcer.annotations.Module;
-  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod;
+  |import com.fbalashov.moduleEnforcer.annotations.Module
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod
   |
   |@Module
   |class ModuleClass1Kt {
@@ -43,24 +43,39 @@ val moduleOneKt: LintDetectorTest.TestFile = TestFiles.java("""
   |  fun bFunction() {}
   |}""".trimMargin())
 
-val moduleTwoKt: LintDetectorTest.TestFile = TestFiles.java("""
-  |package moduleEnforcer.test;
+val moduleTwoKt: LintDetectorTest.TestFile = TestFiles.kt("""
+  |package moduleEnforcer.test
   |
-  |import com.fbalashov.moduleEnforcer.annotations.Module;
-  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod;
+  |import com.fbalashov.moduleEnforcer.annotations.Module
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod
   |
   |@Module
   |class ModuleClass2Kt {
   |  @RequiredMethod
   |  fun aFunction() {}
   |  @RequiredMethod
-  |  fun bFunction() {}
+  |  fun bFunction(): Boolean {}
   |}""".trimMargin())
 
-// Kotlin File
-//kt("" +
-//    "package com.fbalashov.moduleEnforcer.detector\n" +
-//    "\n" +
-//    "class com.fbalashov.moduleEnforcer.detector.Module {\n" +
-//    "  fun aMethod() {}\n" +
-//    "}")
+val moduleWithFieldsMethodsAnnotations: LintDetectorTest.TestFile = TestFiles.kt("""
+  |package moduleEnforcer.test
+  |
+  |import com.fbalashov.moduleEnforcer.annotations.Module
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod
+  |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation
+  |
+  |@Module
+  |class ClassWithOtherFieldsAndMethods {
+  |  var long: Long = 0
+  |  var string: String? = null
+  |
+  |  @AnotherAnnotation
+  |  @RequiredMethod
+  |  fun aFunction(): Boolean {
+  |    return false
+  |  }
+  |
+  |  fun anotherFunction(): String {
+  |    return ""
+  |  }
+  |}""".trimMargin())
