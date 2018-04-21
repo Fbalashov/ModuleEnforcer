@@ -1,6 +1,6 @@
 # Module Enforcer
 
-[![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)]((https://travis-ci.org/Fbalashov/ModuleEnforcer))
+[![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)](https://travis-ci.org/Fbalashov/ModuleEnforcer)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer)
 ![Built with Kotlin](https://img.shields.io/badge/built%20with-Kotlin-orange.svg)
@@ -33,11 +33,11 @@ that developers will be guided towards its proper usage.
 ## Sample Output
 Command Line Lint Output
 
-![Module Enforcer Lint Output](moduleEnforcer-LintOutput.png "Module Enforcer Lint Output")
+![Module Enforcer Lint Output](./moduleEnforcer-LintOutput.PNG "Module Enforcer Lint Output")
 
 IDE "Analyze > Inspect Code" output
 
-![Module Enforcer IDE Inpsection Output](moduleEnforcer-IDEInspection.png "Module Enforcer IDE Inpsection Output")
+![Module Enforcer IDE Inpsection Output](./moduleEnforcer-IDEInspection.PNG "Module Enforcer IDE Inpsection Output")
 
 ## Usage
 
@@ -49,11 +49,11 @@ dependencies {
   ...
 }
 ```
-2) annotate the module class with `@Module`
-3) annotate the needed methods with `@RequiredMethod`
-4) try instantiating the module in an activity.
+2) Annotate the module class with `@Module`
+3) Annotate the needed methods with `@RequiredMethod`
+4) Try instantiating the module in an activity.
 5) Run lint on your project. Oh my, lint errors!
-5) call the reported methods in your class, the lint errors will be gone the next time you run lint.
+5) Call the reported methods in your class, the lint errors will be gone the next time you run lint.
 
 #### Example Module
 
