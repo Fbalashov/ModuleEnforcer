@@ -1,68 +1,98 @@
 # Module Enforcer
+
 [![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)]((https://travis-ci.org/Fbalashov/ModuleEnforcer))
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer)
+![Built with Kotlin](https://img.shields.io/badge/built%20with-Kotlin-orange.svg)
 
-<img src="moduleEnforcer.png" alt="Module Enforcer Logo" width=150px height=150px/>
+<p align="center">
+    <img src="moduleEnforcer.png" alt="Module Enforcer Logo" width="150" height="150"/>
+</p>
 
-Currently only supports Java, due to [Android Lint Limitations](#Limitations)
+*Composition in Android is hard, this library is meant to make it a bit safer. "How?" you ask, by the
+glory of lint rules of course!*
 
-Have you ever looked at an activity and thought: "why is there all this code here?". Maybe you took a step to
-move it into neat little abstract activities.
-The same problem applies to any classes that you extend from in android: fragments, services, broadcast receivers.
+When you compose logic in a class, you have the expectation that developers will use it a certain way.
+If you are the only dev, you can guarantee the class (module) will be used correctly. But if you are on a
+team or sharing your module, other developers can miss something essential.
 
-Of course the answer to that is composition, right?
-You may have tried it out and quickly realized, "wow, that was a horrible idea, look how many activity
-callbacks I had to hook this standalone class into! How will I ever keep this straight?" Then you found a
-library that allows you to
+Module Enforcer eases the cognitive load for users of your module. You annotate methods that must be called
+for the module to work correctly and android lint will warn your users if they are not calling all the annotated methods.
 
-Composition in android is hard and this library/lint rule is meant to make it a bit easier. How? Well by the
-glory of annotations of course! To make it easy to create/use modules and then implement them properly we will
-now annotate methods in a module that need to be called by anything that instantiates that module.
+This is especially helpful if you are creating a module that needs to be called for different lifecycle events.
+Rather than creating a class that users of your library must extend, you can compose your logic with the assurance
+that developers will be guided towards its proper usage.
 
-Principle Assumptions:
-1) you give your methods in your module names that match the activity/fragment methods they should be called in,
-why? Because otherwise it will be challenging for people to figure out where they should be called.
-2) you are instantiating your module in your activity? (If this doesn't work for you please take a look and
-comment in this issue, PRs are welcome!)
-3) You are running an android project with lint turned on <___ maybe???___>
+#### Note
 
-Usage Steps:
-0) Add this library in your `build.gradle`
+* ModuleEnforcer does work with injected fields.
+* Module Enforcer works for both Kotlin and Java
+* Currently this library is in development and has some [limitations described below](#limitations).
+* The library is subject to breaking changes until the annotation names are settled.
+
+## Sample Output
+Command Line Lint Output
+
+![Module Enforcer Lint Output](moduleEnforcer-LintOutput.png "Module Enforcer Lint Output")
+
+IDE "Analyze > Inspect Code" output
+
+![Module Enforcer IDE Inpsection Output](moduleEnforcer-IDEInspection.png "Module Enforcer IDE Inpsection Output")
+
+## Usage
+
+1) Add this library in your `build.gradle`
 ```
 dependencies {
   ...
-  compile 'com.github.fbalashov.moduleEnforcer:lib:0.0.4-SNAPSHOT'
+  compile 'com.github.fbalashov.moduleEnforcer:lib:0.1'
   ...
 }
 ```
-1) annotate the module class with @Module
-2) annotate the needed methods with @RequiredMethod
-try instantiating the module in an activity and see what happens! Oh my lint errors
-3) call the reported methods in your class and you are set.
+2) annotate the module class with `@Module`
+3) annotate the needed methods with `@RequiredMethod`
+4) try instantiating the module in an activity.
+5) Run lint on your project. Oh my, lint errors!
+5) call the reported methods in your class, the lint errors will be gone the next time you run lint.
 
-(Note! If you only need the lifecycle callbacks from an activity you should look into using the
-Lifecycle Observer (___insert link____). It is provided by android, doesn't require extending a new base
-activity and will call annotated lifecycle callbacks in your module on its own.
-However it wont give you anything other than lifecycle callbacks.)
+#### Example Module
+
+```
+package moduleEnforcer.example
+
+import com.fbalashov.moduleEnforcer.annotations.Module
+import com.fbalashov.moduleEnforcer.annotations.RequiredMethod
+
+@Module
+class Example Module {
+  @RequiredMethod
+  fun aFunction() {
+    // If you don't call me, you will get a lint error!
+  }
+  fun bFunction() {
+    // I can be ignored :(
+  }
+}
+```
 
 ## Limitations
-Currently, this library only supports modules and module users written in Java.
-This is due to limitations with lint support in Kotlin.
-* [As noted in their docs](https://developer.android.com/studio/preview/kotlin-issues.html)
-* [And in this issue](https://youtrack.jetbrains.com/issue/KT-7729)
+Currently, this library only works in the command line and using the "Analyze>Inspect Code" tool in Android Studio.
+It does not highlight modules in the Android Studio IDE while you are coding. This seems to be a discrepancy in how
+Android Studio runs lint, but I still need confirmation.
 
-## Areas for Improvement:
-*include a method name that the method should be called in as an annotation argument, eg:
-```
-@requiredMethod('onResume')
-```
-* Assert that a method is called in ALL conditions (maybe there is an if statement that prevents a method from being called in onResume in certain cases.
-* Follow object instances if they are passed into another class so you can assert if the method is called there (Can contradict point 1)
+## Areas for Improvement
+* Come up with a name for @Module that doesn't clash with Dagger's @Module annotation.
+* Verify that a method is called in ALL conditions (maybe there is an if statement that prevents a method from being called in certain cases.
+* Follow object instances if they are passed into another class so you can assert if the method is called there.
 
-## Attributions
+## Contributions
+* I am open to any suggestions and feedback you may have. Please open an issue if you have improvements you'd like to share!
+* I welcome contributions the community may have! Please open an issue with a description of your improvement and some use cases, we can take it from there.
+  * I recommend reading the guide by Niklas Baudy listed below, it will ramp you up on writing lint rules.
+* Please keep in mind that my goal is to keep this tool simple and flexible while providing safety for modules.
+
+## Shout-outs
 * Thanks to Niklas Baudy for the [guide](https://medium.com/@vanniktech/writing-your-first-lint-check-39ad0e90b9e6)
 and [sample lint rules](https://github.com/vanniktech/lint-rules/) he made publicly available.
-These proved invaluable in my hunt for educational materials.
-*
+These proved invaluable in my hunt for educational materials on lint.
 
