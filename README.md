@@ -81,6 +81,7 @@ It does not highlight modules in the Android Studio IDE while you are coding. Th
 Android Studio runs lint, but I still need confirmation.
 
 ## Areas for Improvement
+* Add support for overloaded required methods.
 * Come up with a name for @Module that doesn't clash with Dagger's @Module annotation.
 * Verify that a method is called in ALL conditions (maybe there is an if statement that prevents a method from being called in certain cases.
 * Follow object instances if they are passed into another class so you can assert if the method is called there.
@@ -95,4 +96,10 @@ Android Studio runs lint, but I still need confirmation.
 * Thanks to Niklas Baudy for the [guide](https://medium.com/@vanniktech/writing-your-first-lint-check-39ad0e90b9e6)
 and [sample lint rules](https://github.com/vanniktech/lint-rules/) he made publicly available.
 These proved invaluable in my hunt for educational materials on lint.
+
+## Details
+* Modules that have `@RequiredMethods` with optional arguments (a kotlin only construct) will not expect you to
+call all variants of the required method. As long as the user of the module calls one form of the method it will not warn them.
+* Modules that have overloaded methods will not warn the user if they call at least one of the methods. I consider this wrong,
+but have not yet fixed [the issue](https://github.com/Fbalashov/ModuleEnforcer/issues/3).
 

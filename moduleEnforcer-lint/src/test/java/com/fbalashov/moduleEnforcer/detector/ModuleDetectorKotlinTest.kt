@@ -21,7 +21,7 @@ class ModuleDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN there is one module in the project AND it's in kotlin`() {
+  fun `WHEN there is one module in the project `() {
     val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleOneKt)
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -30,13 +30,46 @@ class ModuleDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN there is one module in the project AND it has other methods, fields and annotations AND it's in kotlin`() {
+  fun `WHEN there is one module in the project AND it has other methods, fields and annotations `() {
     val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleWithFieldsMethodsAnnotationsKt)
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expectClean()
     TestCase.assertEquals(1, modules.size)
     val class1Module = modules.find { it.qualifiedName.name == "ClassWithOtherFieldsAndMethods" }
+    TestCase.assertEquals(1, class1Module!!.requiredMethods.size)
+  }
+
+  @Test
+  fun `WHEN there is one module in the project AND it has a required method with optional arguments `() {
+    val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleWithOptionalArgsKt)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ModuleClassOptionalArgsKt" }
+    TestCase.assertEquals(1, class1Module!!.requiredMethods.size)
+  }
+
+  @Test
+  fun `WHEN there is one module in the project AND it has a overloaded required methods `() {
+    val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleWithOverloadedMethodsKt)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ModuleClassOverloadedMethodsKt" }
+    TestCase.assertEquals(2, class1Module!!.requiredMethods.size)
+  }
+
+  @Test
+  fun `WHEN there is one module in the project AND it has a overloaded method where one form is required and the other isn't`() {
+    val result = lint().files(stubModuleKt, stubRequiredMethodKt, moduleWithOverloadedMethodsOneRequiredKt)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ModuleClassOverloadedMethodsKt" }
     TestCase.assertEquals(1, class1Module!!.requiredMethods.size)
   }
 

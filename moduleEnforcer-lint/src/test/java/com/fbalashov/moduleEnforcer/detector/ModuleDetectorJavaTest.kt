@@ -49,4 +49,26 @@ class ModuleDetectorJavaTest {
     val class2Module = modules.find { it.qualifiedName.name == "ModuleClass2" }
     TestCase.assertEquals(2, class2Module!!.requiredMethods.size)
   }
+
+  @Test
+  fun `WHEN there is one module in the project AND it has a overloaded required methods`() {
+    val result = lint().files(stubModuleJava, stubRequiredMethodJava, moduleWithOverloadedMethodsJava)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ModuleClassOverloadedMethodsJava" }
+    TestCase.assertEquals(2, class1Module!!.requiredMethods.size)
+  }
+
+  @Test
+  fun `WHEN there is one module in the project AND it has a overloaded method where one form is required and the other isn't`() {
+    val result = lint().files(stubModuleJava, stubRequiredMethodJava, moduleWithOverloadedMethodsOneRequiredJava)
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expectClean()
+    TestCase.assertEquals(1, modules.size)
+    val class1Module = modules.find { it.qualifiedName.name == "ModuleClassOverloadedMethodsJava" }
+    TestCase.assertEquals(1, class1Module!!.requiredMethods.size)
+  }
 }

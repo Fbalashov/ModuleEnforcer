@@ -5,6 +5,7 @@ import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.fbalashov.moduleEnforcer.Issues.ISSUE_MODULE_USAGE
 import com.fbalashov.moduleEnforcer.modules
 import junit.framework.TestCase
+import junit.framework.TestResult
 import org.junit.Test
 
 /**
@@ -190,4 +191,213 @@ class ModuleUsageDetectorKotlinTest {
     )
     TestCase.assertEquals(2, modules.size)
   }
+
+  @Test
+  fun `WHEN a module WITH a required method with optional arguments is initialized, AND none of the methods are invoked`() {
+    val result = TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOptionalArgsKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOptionalArgsKt()
+            |
+            |  fun functionOne() {
+            |  }
+            |}""".trimMargin())
+    )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expect("""
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |  private val module = ModuleClassOptionalArgsKt()
+      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |1 errors, 0 warnings
+      |""".trimMargin()
+    )
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
+  fun `WHEN a module WITH a required method with optional arguments is initialized, AND the method is invoked with all arguments`() {
+    TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOptionalArgsKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOptionalArgsKt()
+            |
+            |  fun functionOne() {
+            |    module.aFunction("def")
+            |  }
+            |}""".trimMargin())
+        )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+        .expectClean()
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
+  fun `WHEN a module WITH a required method with optional arguments is initialized, AND the method is invoked with no arguments`() {
+    TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOptionalArgsKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOptionalArgsKt()
+            |
+            |  fun functionOne() {
+            |    module.aFunction()
+            |  }
+            |}""".trimMargin())
+        )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+        .expectClean()
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
+  fun `WHEN a module WITH overloaded required methods is used, AND none of the methods are invoked`() {
+    val result = TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOverloadedMethodsKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOverloadedMethodsKt()
+            |
+            |  fun functionOne() {
+            |  }
+            |}""".trimMargin())
+    )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+    result.expect("""
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |  private val module = ModuleClassOverloadedMethodsKt()
+      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |1 errors, 0 warnings
+      |""".trimMargin()
+    )
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
+  fun `WHEN a module WITH overloaded required methods is used, AND all of the methods are invoked`() {
+    TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOverloadedMethodsKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOverloadedMethodsKt()
+            |
+            |  fun functionOne() {
+            |    module.aFunction()
+            |    module.aFunction("def")
+            |  }
+            |}""".trimMargin())
+    )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+        .expectClean()
+    TestCase.assertEquals(1, modules.size)
+  }
+
+  @Test
+  fun `WHEN a module WITH overloaded methods is used, AND one of which is required, AND the required method is invoked`() {
+    TestLintTask.lint().files(
+        stubModuleKt,
+        stubRequiredMethodKt,
+        moduleWithOverloadedMethodsOneRequiredKt,
+        TestFiles.kt("""
+            |package moduleEnforcer.test
+            |
+            |class AClass {
+            |  private val module = ModuleClassOverloadedMethodsKt()
+            |
+            |  fun functionOne() {
+            |    module.aFunction("abc")
+            |  }
+            |}""".trimMargin())
+    )
+        .issues(ISSUE_MODULE_USAGE)
+        .run()
+        .expectClean()
+    TestCase.assertEquals(1, modules.size)
+  }
+
+// Uncomment once I add support for overloaded methods!
+// https://github.com/Fbalashov/ModuleEnforcer/issues/3
+//  @Test
+//  fun `WHEN a module WITH overloaded required methods is used, AND one of the methods are invoked`() {
+//    val result = TestLintTask.lint().files(
+//        stubModuleKt,
+//        stubRequiredMethodKt,
+//        moduleWithOverloadedMethodsKt,
+//        TestFiles.kt("""
+//            |package moduleEnforcer.test
+//            |
+//            |class AClass {
+//            |  private val module = ModuleClassOverloadedMethodsKt()
+//            |
+//            |  fun functionOne() {
+//            |    module.aFunction()
+//            |  }
+//            |}""".trimMargin())
+//    )
+//        .issues(ISSUE_MODULE_USAGE)
+//        .run()
+//    result.expect("""
+//      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//      |  private val module = ModuleClassOverloadedMethodsKt()
+//      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//      |1 errors, 0 warnings
+//      |""".trimMargin()
+//    )
+//    TestCase.assertEquals(1, modules.size)
+//  }
+//
+//  @Test
+//  fun `WHEN a module WITH overloaded methods is used, AND one of which is required, AND the required method is not invoked`() {
+//    val result = TestLintTask.lint().files(
+//        stubModuleKt,
+//        stubRequiredMethodKt,
+//        moduleWithOverloadedMethodsOneRequiredKt,
+//        TestFiles.kt("""
+//              |package moduleEnforcer.test
+//              |
+//              |class AClass {
+//              |  private val module = ModuleClassOverloadedMethodsKt()
+//              |
+//              |  fun functionOne() {
+//              |    module.aFunction()
+//              |  }
+//              |}""".trimMargin())
+//    )
+//        .issues(ISSUE_MODULE_USAGE)
+//        .run()
+//    result.expect("""
+//        |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//        |  private val module = ModuleClassOverloadedMethodsKt()
+//        |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//        |1 errors, 0 warnings
+//        |""".trimMargin()
+//    )
+//    TestCase.assertEquals(1, modules.size)
+//  }
 }

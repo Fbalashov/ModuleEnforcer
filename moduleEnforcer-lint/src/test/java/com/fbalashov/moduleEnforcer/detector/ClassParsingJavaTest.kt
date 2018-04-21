@@ -72,7 +72,7 @@ class ClassParsingJavaTest {
     TestLintTask.lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
-        moduleWithArgsKt,
+        moduleWithArgsJava,
         TestFiles.java("""
             |package moduleEnforcer.test;
             |
