@@ -57,7 +57,19 @@ val moduleTwoKt: LintDetectorTest.TestFile = TestFiles.kt("""
   |  fun bFunction(): Boolean {}
   |}""".trimMargin())
 
-val moduleWithFieldsMethodsAnnotations: LintDetectorTest.TestFile = TestFiles.kt("""
+val moduleWithArgsKt: LintDetectorTest.TestFile = TestFiles.kt("""
+  |package moduleEnforcer.test
+  |
+  |import com.fbalashov.moduleEnforcer.annotations.Module
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod
+  |
+  |@Module
+  |class ModuleClassArgsKt {
+  |  @RequiredMethod
+  |  fun aFunction(string: String) {}
+  |}""".trimMargin())
+
+val moduleWithFieldsMethodsAnnotationsKt: LintDetectorTest.TestFile = TestFiles.kt("""
   |package moduleEnforcer.test
   |
   |import com.fbalashov.moduleEnforcer.annotations.Module

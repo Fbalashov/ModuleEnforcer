@@ -12,7 +12,7 @@ import org.junit.Test
  */
 class ModuleUsageDetectorKotlinTest {
   @Test
-  fun `WHEN a module is used, AND the method is invoked, AND both classes are in kotlin`() {
+  fun `WHEN a module is used, AND the method is invoked`() {
     TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,
@@ -35,7 +35,7 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND all required methods are called, AND all classes are in kotlin`() {
+  fun `WHEN two modules are used, AND all required methods are called`() {
     TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,
@@ -65,7 +65,7 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN a module is used, AND the method is not invoked, AND both classes are in kotlin`() {
+  fun `WHEN a module is used, AND the method is not invoked`() {
     val result = TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,
@@ -93,7 +93,7 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND required methods are not called, AND all classes are in kotlin`() {
+  fun `WHEN two modules are used, AND required methods are not called`() {
     val result = TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,
@@ -126,7 +126,7 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND the first's require methods are called AND the second's required methods are not called, AND all classes are in kotlin`() {
+  fun `WHEN two modules are used, AND the first's require methods are called AND the second's required methods are not called`() {
     val result = TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,
@@ -157,37 +157,7 @@ class ModuleUsageDetectorKotlinTest {
   }
 
   @Test
-  fun `WHEN a module is used, AND all methods are called, AND both classes have other fields, methods and annotations, AND both classes are in kotlin`() {
-    TestLintTask.lint().files(
-        stubModuleKt,
-        stubRequiredMethodKt,
-        moduleWithFieldsMethodsAnnotations,
-        TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation
-            |
-            |class AClass {
-            |  private val module1 = ClassWithOtherFieldsAndMethods()
-            |
-            |  fun functionOne(): String {
-            |    return module1.aFunction()
-            |  }
-            |
-            |  @AnotherAnnotation
-            |  fun functionTwo(): Boolean {
-            |    return false;
-            |  }
-            |}""".trimMargin())
-        )
-        .issues(ISSUE_MODULE_USAGE)
-        .run()
-        .expectClean()
-    TestCase.assertEquals(1, modules.size)
-  }
-
-  @Test
-  fun `WHEN two modules are used, AND one of the second's required methods are not called, AND both classes are in kotlin`() {
+  fun `WHEN two modules are used, AND one of the second's required methods are not called`() {
     val result = TestLintTask.lint().files(
         stubModuleKt,
         stubRequiredMethodKt,

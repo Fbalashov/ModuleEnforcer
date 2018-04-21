@@ -6,7 +6,7 @@ import junit.framework.TestCase
 import com.fbalashov.moduleEnforcer.modules
 import org.junit.Test
 
-/**
+/**s
  * @author Fuad.Balashov on 2/19/2018.
  */
 class ModuleDetectorJavaTest {
@@ -21,7 +21,7 @@ class ModuleDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN there is one module in the project AND it's in java`() {
+  fun `WHEN there is one module in the project`() {
     val result = lint().files(stubModuleJava, stubRequiredMethodJava, moduleOneJava)
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -30,7 +30,7 @@ class ModuleDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN there are multiple modules in the project AND they're in java`() {
+  fun `WHEN there are multiple modules in the project`() {
     val result = lint().files(
         stubModuleJava,
         stubRequiredMethodJava,

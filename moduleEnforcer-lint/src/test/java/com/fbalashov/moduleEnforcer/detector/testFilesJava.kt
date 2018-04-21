@@ -50,3 +50,42 @@ val moduleTwoJava: LintDetectorTest.TestFile = java("""
   |  @RequiredMethod
   |  public void bFunction() {}
   |}""".trimMargin())
+
+val moduleWithArgsJava: LintDetectorTest.TestFile = java("""
+  |package moduleEnforcer.test;
+  |
+  |import com.fbalashov.moduleEnforcer.annotations.Module;
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod;
+  |
+  |@Module
+  |public class ModuleClassArgs {
+  |  @RequiredMethod
+  |  public void aFunction(String string) {}
+  |}""".trimMargin())
+
+val moduleWithFieldsMethodsAnnotationsJava: LintDetectorTest.TestFile = java("""
+  |package moduleEnforcer.test;
+  |
+  |import com.fbalashov.moduleEnforcer.annotations.Module;
+  |import com.fbalashov.moduleEnforcer.annotations.RequiredMethod;
+  |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation;
+  |
+  |@Module
+  |public class ClassWithOtherFieldsAndMethods {
+  |  long value = 0;
+  |  String string = null;
+  |
+  |  @AnotherAnnotation
+  |  @RequiredMethod
+  |  public boolean aFunction() {
+  |    return false;
+  |  }
+  |
+  |  private String anotherFunction() {
+  |    return "";
+  |  }
+  |
+  |  public String anotherFunction2() {
+  |    return "";
+  |  }
+  |}""".trimMargin())

@@ -12,7 +12,7 @@ import org.junit.Test
  */
 class ModuleUsageDetectorJavaTest {
   @Test
-  fun `WHEN a module is used, AND the method is invoked, AND both classes are in java`() {
+  fun `WHEN a module is used, AND the method is invoked`() {
     lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
@@ -35,7 +35,7 @@ class ModuleUsageDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND all required methods are called, AND all classes are in java`() {
+  fun `WHEN two modules are used, AND all required methods are called`() {
     lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
@@ -65,7 +65,7 @@ class ModuleUsageDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN a module is used, AND the method is not invoked, AND both classes are in java`() {
+  fun `WHEN a module is used, AND the method is not invoked`() {
     val result = lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
@@ -93,7 +93,7 @@ class ModuleUsageDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND required methods are not called, AND all classes are in java`() {
+  fun `WHEN two modules are used, AND required methods are not called`() {
     val result = lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
@@ -126,7 +126,7 @@ class ModuleUsageDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND the first's require methods are called AND the second's required methods are not called, AND all classes are in java`() {
+  fun `WHEN two modules are used, AND the first's require methods are called AND the second's required methods are not called`() {
     val result = lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
@@ -157,7 +157,7 @@ class ModuleUsageDetectorJavaTest {
   }
 
   @Test
-  fun `WHEN two modules are used, AND one of the second's required methods are not called, AND both classes are in java`() {
+  fun `WHEN two modules are used, AND one of the second's required methods are not called`() {
     val result = lint().files(
         stubModuleJava,
         stubRequiredMethodJava,
