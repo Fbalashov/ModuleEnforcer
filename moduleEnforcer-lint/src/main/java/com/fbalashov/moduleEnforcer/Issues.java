@@ -7,6 +7,8 @@ import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.fbalashov.moduleEnforcer.detector.ModuleUsageDetector;
 
+import java.util.EnumSet;
+
 /**
  * @author Fuad.Balashov on 3/4/2018.
  * I had issues accessing the companion object when running lint on kotlin code specifically
@@ -34,5 +36,6 @@ public class Issues {
       "A required method from this module was not called.",
       "Please visit the class for this field to ensure that all `@RequiredMethod`s are called",
       Category.CORRECTNESS, 8, Severity.FATAL,
-      new Implementation(ModuleUsageDetector.class, Scope.JAVA_FILE_SCOPE));
+      new Implementation(ModuleUsageDetector.class, EnumSet.of(Scope.ALL_JAVA_FILES))
+  );
 }
