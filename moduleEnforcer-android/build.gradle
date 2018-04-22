@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 afterEvaluate {
-    generateReleaseBuildConfig.enabled = true
+    generateReleaseBuildConfig.enabled = false
 }
 
 android {
