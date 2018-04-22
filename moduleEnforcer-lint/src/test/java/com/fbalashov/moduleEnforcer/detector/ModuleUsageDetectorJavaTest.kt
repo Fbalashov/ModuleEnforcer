@@ -18,15 +18,15 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module = new ModuleClass1();
-            |
-            |  public void functionOne() {
-            |    module.aFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module = new ModuleClass1();
+
+              public void functionOne() {
+                module.aFunction();
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -42,21 +42,21 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |    module2.aFunction();
-            |  }
-            |
-            |  public void functionTwo() {
-            |    module2.bFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+                module2.aFunction();
+              }
+
+              public void functionTwo() {
+                module2.bFunction();
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -71,14 +71,14 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module = new ModuleClass1();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module = new ModuleClass1();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -100,15 +100,15 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -133,16 +133,16 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -164,20 +164,20 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |
-            |  public void functionTwo() {
-            |    module2.bFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+
+              public void functionTwo() {
+                module2.bFunction();
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -198,14 +198,14 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -226,16 +226,16 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |    module.aFunction();
-            |    module.aFunction("def");
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+                module.aFunction();
+                module.aFunction("def");
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -250,15 +250,15 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsOneRequiredJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |    module.aFunction("def");
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+                module.aFunction("def");
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -275,15 +275,15 @@ class ModuleUsageDetectorJavaTest {
 //        stubRequiredMethodJava,
 //        moduleWithOverloadedMethodsJava,
 //        java("""
-//            |package moduleEnforcer.test;
-//            |
-//            |public class AClass {
-//            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-//            |
-//            |  public void functionOne() {
-//            |    module.aFunction("def");
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test;
+//
+//            public class AClass {
+//              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+//
+//              public void functionOne() {
+//                module.aFunction("def");
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
@@ -304,15 +304,15 @@ class ModuleUsageDetectorJavaTest {
 //        stubRequiredMethodJava,
 //        moduleWithOverloadedMethodsOneRequiredJava,
 //        java("""
-//            |package moduleEnforcer.test;
-//            |
-//            |public class AClass {
-//            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-//            |
-//            |  public void functionOne() {
-//            |    module.aFunction();
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test;
+//
+//            public class AClass {
+//              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+//
+//              public void functionOne() {
+//                module.aFunction();
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()

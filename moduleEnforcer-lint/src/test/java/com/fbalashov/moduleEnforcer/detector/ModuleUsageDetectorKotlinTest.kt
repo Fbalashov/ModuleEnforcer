@@ -19,15 +19,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClass1Kt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClass1Kt()
+
+              fun functionOne() {
+                module.aFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -43,21 +43,21 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |    module2.aFunction()
-            |  }
-            |
-            |  fun functionTwo() {
-            |    module2.bFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+                module2.aFunction()
+              }
+
+              fun functionTwo() {
+                module2.bFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -72,14 +72,14 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClass1Kt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClass1Kt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -101,15 +101,15 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -134,16 +134,16 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val  module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val  module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -165,20 +165,20 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |  }
-            |
-            |  fun functionTwo() {
-            |    module2.bFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+              }
+
+              fun functionTwo() {
+                module2.bFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -199,14 +199,14 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -227,15 +227,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction("def")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+                module.aFunction("def")
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -250,15 +250,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+                module.aFunction()
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -273,14 +273,14 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -301,16 +301,16 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |    module.aFunction("def")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+                module.aFunction()
+                module.aFunction("def")
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -325,15 +325,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsOneRequiredKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction("abc")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+                module.aFunction("abc")
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -350,15 +350,15 @@ class ModuleUsageDetectorKotlinTest {
 //        stubRequiredMethodKt,
 //        moduleWithOverloadedMethodsKt,
 //        TestFiles.kt("""
-//            |package moduleEnforcer.test
-//            |
-//            |class AClass {
-//            |  private val module = ModuleClassOverloadedMethodsKt()
-//            |
-//            |  fun functionOne() {
-//            |    module.aFunction()
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test
+//
+//            class AClass {
+//              private val module = ModuleClassOverloadedMethodsKt()
+//
+//              fun functionOne() {
+//                module.aFunction()
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
@@ -379,15 +379,15 @@ class ModuleUsageDetectorKotlinTest {
 //        stubRequiredMethodKt,
 //        moduleWithOverloadedMethodsOneRequiredKt,
 //        TestFiles.kt("""
-//              |package moduleEnforcer.test
-//              |
-//              |class AClass {
-//              |  private val module = ModuleClassOverloadedMethodsKt()
-//              |
-//              |  fun functionOne() {
-//              |    module.aFunction()
-//              |  }
-//              |}""".trimMargin())
+//              package moduleEnforcer.test
+//
+//              class AClass {
+//                private val module = ModuleClassOverloadedMethodsKt()
+//
+//                fun functionOne() {
+//                  module.aFunction()
+//                }
+//              }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
