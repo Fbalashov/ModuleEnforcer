@@ -45,7 +45,7 @@ IDE "Analyze > Inspect Code" output
 ```
 dependencies {
   ...
-  compile 'com.github.fbalashov.moduleEnforcer:lib:0.1'
+  compile 'com.github.fbalashov:moduleEnforcer:0.1'
   ...
 }
 ```
