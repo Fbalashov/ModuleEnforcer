@@ -2,7 +2,7 @@
 
 [![Travis-ci](https://api.travis-ci.org/Fbalashov/ModuleEnforcer.svg)](https://travis-ci.org/Fbalashov/ModuleEnforcer)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/ModuleEnforcer)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/moduleEnforcer/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.fbalashov/moduleEnforcer)
 ![Built with Kotlin](https://img.shields.io/badge/built%20with-Kotlin-orange.svg)
 
 <p align="center">
