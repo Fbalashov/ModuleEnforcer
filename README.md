@@ -9,7 +9,7 @@
     <img src="moduleEnforcer.png" alt="Module Enforcer Logo" width="150" height="150"/>
 </p>
 
-*Composition in Android is hard, this library is meant to make it a bit safer. "How?" you ask, by the
+*Composition is hard, this library is meant to make it a bit safer. "How?" you ask, by the
 glory of lint rules of course!*
 
 When you compose logic in a class, you have the expectation that developers will use it a certain way.
@@ -17,9 +17,9 @@ If you are the only dev, you can guarantee the class (module) will be used corre
 team or sharing your module, other developers can miss something essential.
 
 Module Enforcer eases the cognitive load for users of your module. You annotate methods that must be called
-for the module to work correctly and android lint will warn your users if they are not calling all the annotated methods.
+for the module to work correctly and lint will warn your users if they are not calling all the annotated methods.
 
-This is especially helpful if you are creating a module that needs to be called for different lifecycle events.
+This is especially helpful if you are creating a module that needs to be called for different Android lifecycle events.
 Rather than creating a class that users of your library must extend, you can compose your logic with the assurance
 that developers will be guided towards its proper usage.
 
@@ -93,9 +93,12 @@ Android Studio runs lint, but I still need confirmation.
 * Please keep in mind that my goal is to keep this tool simple and flexible while providing safety for modules.
 
 ## Shout-outs
+* [This talk](https://www.youtube.com/watch?v=p8yX5-lPS6o) by Tor Norbye is especially helpful for learning about
+the features in lint (circa 2018).
 * Thanks to Niklas Baudy for the [guide](https://medium.com/@vanniktech/writing-your-first-lint-check-39ad0e90b9e6)
 and [sample lint rules](https://github.com/vanniktech/lint-rules/) he made publicly available.
 These proved invaluable in my hunt for educational materials on lint.
+* And thank you to the community at [lint-dev](https://groups.google.com/forum/#!forum/lint-dev).
 
 ## Details
 * Modules that have `@RequiredMethods` with optional arguments (a kotlin only construct) will not expect you to

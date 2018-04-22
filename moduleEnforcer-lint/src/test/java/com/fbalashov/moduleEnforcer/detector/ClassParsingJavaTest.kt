@@ -110,7 +110,7 @@ class ClassParsingJavaTest {
         .issues(Issues.ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  @Inject ModuleClass1 module;
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings

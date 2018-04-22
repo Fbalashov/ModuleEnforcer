@@ -84,7 +84,7 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClass1Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -114,10 +114,10 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module1 = ModuleClass1Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |2 errors, 0 warnings
@@ -148,7 +148,7 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -183,7 +183,7 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -211,7 +211,7 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClassOptionalArgsKt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -285,7 +285,7 @@ class ModuleUsageDetectorKotlinTest {
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClassOverloadedMethodsKt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -363,7 +363,7 @@ class ModuleUsageDetectorKotlinTest {
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //      |  private val module = ModuleClassOverloadedMethodsKt()
 //      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //      |1 errors, 0 warnings
@@ -392,7 +392,7 @@ class ModuleUsageDetectorKotlinTest {
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//        |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//        |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //        |  private val module = ModuleClassOverloadedMethodsKt()
 //        |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //        |1 errors, 0 warnings

@@ -16,6 +16,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes("Lint-Registry-v2": "com.fbalashov.moduleEnforcer.DetectorRegistry")
+        attributes("Lint-Registry-v2": "com.fbalashov.moduleEnforcer.Registry")
     }
 }
