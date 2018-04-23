@@ -24,9 +24,7 @@ class ModuleUsageDetector: Detector(), Detector.UastScanner {
     modules.clear()
   }
 
-  override fun getApplicableUastTypes(): MutableList<Class<out UElement>> {
-    return mutableListOf(UClass::class.java)
-  }
+  override fun getApplicableUastTypes() = mutableListOf(UClass::class.java)
 
   override fun createUastHandler(context: JavaContext): UElementHandler {
     if (context.driver.phase < 2) {

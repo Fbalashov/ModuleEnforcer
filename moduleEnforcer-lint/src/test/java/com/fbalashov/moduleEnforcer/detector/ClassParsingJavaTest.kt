@@ -19,15 +19,16 @@ class ClassParsingJavaTest {
         stubRequiredMethodJava,
         moduleWithFieldsMethodsAnnotationsJava,
         TestFiles.java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ClassWithOtherFieldsAndMethods module1 = new ClassWithOtherFieldsAndMethods();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ClassWithOtherFieldsAndMethods module1 = new ClassWithOtherFieldsAndMethods();
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+            }
+            """).indented()
         )
         .issues(Issues.ISSUE_MODULE_USAGE)
         .run()
@@ -42,24 +43,24 @@ class ClassParsingJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         TestFiles.java("""
-            |package moduleEnforcer.test;
-            |
-            |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation;
-            |
-            |public class AClass {
-            |  private moduleOneJava module1 = new moduleOneJava();
-            |  private String anotherField = "asdasd";
-            |  public boolean defaultvalue;
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |
-            |  @AnotherAnnotation
-            |  public boolean functionTwo() {
-            |    return false;
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation;
+
+            public class AClass {
+              private moduleOneJava module1 = new moduleOneJava();
+              private String anotherField = "asdasd";
+              public boolean defaultvalue;
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+
+              @AnotherAnnotation
+              public boolean functionTwo() {
+                return false;
+              }
+            }""").indented()
     )
         .issues(Issues.ISSUE_MODULE_USAGE)
         .run()
@@ -74,15 +75,15 @@ class ClassParsingJavaTest {
         stubRequiredMethodJava,
         moduleWithArgsJava,
         TestFiles.java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassArgs module1 = new ModuleClassArgs();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction("abc");
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassArgs module1 = new ModuleClassArgs();
+
+              public void functionOne() {
+                module1.aFunction("abc");
+              }
+            }""").indented()
     )
         .issues(Issues.ISSUE_MODULE_USAGE)
         .run()
@@ -97,19 +98,19 @@ class ClassParsingJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         TestFiles.java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  @Inject ModuleClass1 module;
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              @Inject ModuleClass1 module;
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(Issues.ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  @Inject ModuleClass1 module;
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings

@@ -19,13 +19,13 @@ class ClassParsingKotlinTest {
         stubRequiredMethodKt,
         moduleWithFieldsMethodsAnnotationsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  fun functionOne(): String {
-            |    return module1.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              fun functionOne(): String {
+                return module1.aFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -40,13 +40,13 @@ class ClassParsingKotlinTest {
         stubRequiredMethodKt,
         moduleWithArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  fun functionOne(): String {
-            |    return module1.aFunction("abd")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              fun functionOne(): String {
+                return module1.aFunction("abd")
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -61,24 +61,24 @@ class ClassParsingKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val another = "asdf"
-            |  public var aValue: Boolean?
-            |
-            |  fun functionOne(): String {
-            |    return module1.aFunction()
-            |  }
-            |
-            |  @AnotherAnnotation
-            |  fun functionTwo(): Boolean {
-            |    return false;
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            import com.fbalashov.moduleEnforcer.annotations.AnotherAnnotation
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val another = "asdf"
+              public var aValue: Boolean?
+
+              fun functionOne(): String {
+                return module1.aFunction()
+              }
+
+              @AnotherAnnotation
+              fun functionTwo(): Boolean {
+                return false;
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -93,19 +93,19 @@ class ClassParsingKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  @Inject lateinit var module: ModuleClass1Kt
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              @Inject lateinit var module: ModuleClass1Kt
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  @Inject lateinit var module: ModuleClass1Kt
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings

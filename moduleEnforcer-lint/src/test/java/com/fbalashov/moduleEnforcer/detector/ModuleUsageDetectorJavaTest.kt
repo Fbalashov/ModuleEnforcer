@@ -18,15 +18,15 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module = new ModuleClass1();
-            |
-            |  public void functionOne() {
-            |    module.aFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module = new ModuleClass1();
+
+              public void functionOne() {
+                module.aFunction();
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -42,21 +42,21 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |    module2.aFunction();
-            |  }
-            |
-            |  public void functionTwo() {
-            |    module2.bFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+                module2.aFunction();
+              }
+
+              public void functionTwo() {
+                module2.bFunction();
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -71,19 +71,19 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleOneJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module = new ModuleClass1();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module = new ModuleClass1();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private ModuleClass1 module = new ModuleClass1();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -100,23 +100,23 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private ModuleClass1 module1 = new ModuleClass1();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private ModuleClass2 module2 = new ModuleClass2();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |2 errors, 0 warnings
@@ -133,21 +133,21 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private ModuleClass2 module2 = new ModuleClass2();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -164,25 +164,25 @@ class ModuleUsageDetectorJavaTest {
         moduleOneJava,
         moduleTwoJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClass1 module1 = new ModuleClass1();
-            |  private ModuleClass2 module2 = new ModuleClass2();
-            |
-            |  public void functionOne() {
-            |    module1.aFunction();
-            |  }
-            |
-            |  public void functionTwo() {
-            |    module2.bFunction();
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClass1 module1 = new ModuleClass1();
+              private ModuleClass2 module2 = new ModuleClass2();
+
+              public void functionOne() {
+                module1.aFunction();
+              }
+
+              public void functionTwo() {
+                module2.bFunction();
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:5: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private ModuleClass2 module2 = new ModuleClass2();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -198,19 +198,19 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [RequiredMethodNotCalled]
       |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -226,16 +226,16 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |    module.aFunction();
-            |    module.aFunction("def");
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+                module.aFunction();
+                module.aFunction("def");
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -250,15 +250,15 @@ class ModuleUsageDetectorJavaTest {
         stubRequiredMethodJava,
         moduleWithOverloadedMethodsOneRequiredJava,
         java("""
-            |package moduleEnforcer.test;
-            |
-            |public class AClass {
-            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-            |
-            |  public void functionOne() {
-            |    module.aFunction("def");
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test;
+
+            public class AClass {
+              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+
+              public void functionOne() {
+                module.aFunction("def");
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -275,20 +275,20 @@ class ModuleUsageDetectorJavaTest {
 //        stubRequiredMethodJava,
 //        moduleWithOverloadedMethodsJava,
 //        java("""
-//            |package moduleEnforcer.test;
-//            |
-//            |public class AClass {
-//            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-//            |
-//            |  public void functionOne() {
-//            |    module.aFunction("def");
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test;
+//
+//            public class AClass {
+//              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+//
+//              public void functionOne() {
+//                module.aFunction("def");
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //      |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
 //      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //      |1 errors, 0 warnings
@@ -304,20 +304,20 @@ class ModuleUsageDetectorJavaTest {
 //        stubRequiredMethodJava,
 //        moduleWithOverloadedMethodsOneRequiredJava,
 //        java("""
-//            |package moduleEnforcer.test;
-//            |
-//            |public class AClass {
-//            |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
-//            |
-//            |  public void functionOne() {
-//            |    module.aFunction();
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test;
+//
+//            public class AClass {
+//              private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
+//
+//              public void functionOne() {
+//                module.aFunction();
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//      |src/moduleEnforcer/test/AClass.java:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //      |  private ModuleClassOverloadedMethodsJava module = new ModuleClassOverloadedMethodsJava();
 //      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //      |1 errors, 0 warnings

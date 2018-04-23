@@ -19,15 +19,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClass1Kt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClass1Kt()
+
+              fun functionOne() {
+                module.aFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -43,21 +43,21 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |    module2.aFunction()
-            |  }
-            |
-            |  fun functionTwo() {
-            |    module2.bFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+                module2.aFunction()
+              }
+
+              fun functionTwo() {
+                module2.bFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -72,19 +72,19 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleOneKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClass1Kt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClass1Kt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClass1Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -101,23 +101,23 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module1 = ModuleClass1Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |2 errors, 0 warnings
@@ -134,21 +134,21 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val  module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val  module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction, bFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -165,25 +165,25 @@ class ModuleUsageDetectorKotlinTest {
         moduleOneKt,
         moduleTwoKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module1 = ModuleClass1Kt()
-            |  private val module2 = ModuleClass2Kt()
-            |
-            |  fun functionOne() {
-            |    module1.aFunction()
-            |  }
-            |
-            |  fun functionTwo() {
-            |    module2.bFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module1 = ModuleClass1Kt()
+              private val module2 = ModuleClass2Kt()
+
+              fun functionOne() {
+                module1.aFunction()
+              }
+
+              fun functionTwo() {
+                module2.bFunction()
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:5: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module2 = ModuleClass2Kt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -199,19 +199,19 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClassOptionalArgsKt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -227,15 +227,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction("def")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+                module.aFunction("def")
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -250,15 +250,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOptionalArgsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOptionalArgsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOptionalArgsKt()
+
+              fun functionOne() {
+                module.aFunction()
+              }
+            }""").indented()
         )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -273,19 +273,19 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
     result.expect("""
-      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction, aFunction [RequiredMethodNotCalled]
       |  private val module = ModuleClassOverloadedMethodsKt()
       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       |1 errors, 0 warnings
@@ -301,16 +301,16 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction()
-            |    module.aFunction("def")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+                module.aFunction()
+                module.aFunction("def")
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -325,15 +325,15 @@ class ModuleUsageDetectorKotlinTest {
         stubRequiredMethodKt,
         moduleWithOverloadedMethodsOneRequiredKt,
         TestFiles.kt("""
-            |package moduleEnforcer.test
-            |
-            |class AClass {
-            |  private val module = ModuleClassOverloadedMethodsKt()
-            |
-            |  fun functionOne() {
-            |    module.aFunction("abc")
-            |  }
-            |}""".trimMargin())
+            package moduleEnforcer.test
+
+            class AClass {
+              private val module = ModuleClassOverloadedMethodsKt()
+
+              fun functionOne() {
+                module.aFunction("abc")
+              }
+            }""").indented()
     )
         .issues(ISSUE_MODULE_USAGE)
         .run()
@@ -350,20 +350,20 @@ class ModuleUsageDetectorKotlinTest {
 //        stubRequiredMethodKt,
 //        moduleWithOverloadedMethodsKt,
 //        TestFiles.kt("""
-//            |package moduleEnforcer.test
-//            |
-//            |class AClass {
-//            |  private val module = ModuleClassOverloadedMethodsKt()
-//            |
-//            |  fun functionOne() {
-//            |    module.aFunction()
-//            |  }
-//            |}""".trimMargin())
+//            package moduleEnforcer.test
+//
+//            class AClass {
+//              private val module = ModuleClassOverloadedMethodsKt()
+//
+//              fun functionOne() {
+//                module.aFunction()
+//              }
+//            }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//      |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //      |  private val module = ModuleClassOverloadedMethodsKt()
 //      |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //      |1 errors, 0 warnings
@@ -379,20 +379,20 @@ class ModuleUsageDetectorKotlinTest {
 //        stubRequiredMethodKt,
 //        moduleWithOverloadedMethodsOneRequiredKt,
 //        TestFiles.kt("""
-//              |package moduleEnforcer.test
-//              |
-//              |class AClass {
-//              |  private val module = ModuleClassOverloadedMethodsKt()
-//              |
-//              |  fun functionOne() {
-//              |    module.aFunction()
-//              |  }
-//              |}""".trimMargin())
+//              package moduleEnforcer.test
+//
+//              class AClass {
+//                private val module = ModuleClassOverloadedMethodsKt()
+//
+//                fun functionOne() {
+//                  module.aFunction()
+//                }
+//              }""").indented()
 //    )
 //        .issues(ISSUE_MODULE_USAGE)
 //        .run()
 //    result.expect("""
-//        |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [ModuleEnforcer_RequiredMethodNotCalled]
+//        |src/moduleEnforcer/test/AClass.kt:4: Error: Not all required methods in this module were invoked: aFunction [RequiredMethodNotCalled]
 //        |  private val module = ModuleClassOverloadedMethodsKt()
 //        |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //        |1 errors, 0 warnings
